@@ -5,11 +5,9 @@ import com.example.alamapplication.dao.AlarmDao
 import com.example.alamapplication.model.Alarm
 import javax.inject.Inject
 
-class AlarmRepository @Inject constructor(
-    private var alarmDao: AlarmDao
-){
+class AlarmRepository @Inject constructor(var alarmDao: AlarmDao) {
 
-    val getAlarms: LiveData<List<Alarm?>?>?
+    val getAlarms: LiveData<List<Alarm>>?
         get() = alarmDao.getAlarms()
 
     fun insertAlarm(alarm: Alarm) {

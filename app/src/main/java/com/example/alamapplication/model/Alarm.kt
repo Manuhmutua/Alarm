@@ -25,20 +25,20 @@ import java.util.*
 
 @Entity(tableName = "alarm_table")
 data class Alarm(
-    @PrimaryKey val alarmId: Int,
-    val hour: Int,
-    val minute: Int,
-    val title: String,
-    val created: Long,
+    @PrimaryKey var alarmId: Int,
+    var hour: Int,
+    var minute: Int,
+    var title: String,
+    var created: Long,
     var started: Boolean,
-    val recurring: Boolean,
-    val monday: Boolean,
-    val tuesday: Boolean,
-    val wednesday: Boolean,
-    val thursday: Boolean,
-    val friday: Boolean,
-    val saturday: Boolean,
-    val sunday: Boolean
+    var recurring: Boolean,
+    var monday: Boolean,
+    var tuesday: Boolean,
+    var wednesday: Boolean,
+    var thursday: Boolean,
+    var friday: Boolean,
+    var saturday: Boolean,
+    var sunday: Boolean
 ) {
     @SuppressLint("DefaultLocale")
     fun schedule(context: Context) {

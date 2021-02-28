@@ -1,12 +1,13 @@
 package com.example.alamapplication.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.example.alamapplication.dao.AlarmDao
 import com.example.alamapplication.source.databse.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -15,9 +16,9 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideDB(application: Application?): Database {
-        return Room.databaseBuilder(application!!,
-            Database::class.java, "Alarm Database")
+    fun provideDB(@ApplicationContext appContext: Context): Database {
+        return Room.databaseBuilder(appContext,
+            Database::class.java, "_Database")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
@@ -25,7 +26,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAlarmDao(database: Database): AlarmDao? {
+    fun provideAlarmDao(database: Database): AlarmDao {
         return database.alarmDao()
     }
 }

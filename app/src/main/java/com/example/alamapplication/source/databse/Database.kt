@@ -7,5 +7,5 @@ import com.example.alamapplication.model.Alarm
 
 @Database(entities = [Alarm::class], version = 2, exportSchema = false)
 abstract class Database : RoomDatabase() {
-    abstract fun alarmDao(): AlarmDao?
+    abstract fun alarmDao(): AlarmDao
 }

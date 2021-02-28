@@ -4,7 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +19,6 @@ import com.example.alamapplication.broadcastreceiver.AlarmBroadcastReceiver
 import com.example.alamapplication.model.Alarm
 import com.example.alamapplication.viewmodel.AlarmViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-
 
 @AndroidEntryPoint
 class AddAlarmFragment : Fragment() {
@@ -32,7 +29,7 @@ class AddAlarmFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[AlarmViewModel::class.java]
+
     }
 
     override fun onCreateView(
@@ -42,6 +39,8 @@ class AddAlarmFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add_alarm, container, false)
         buttonSave = view.findViewById(R.id.buttonSave)
         timePicker = view.findViewById(R.id.timePicker)
+
+        viewModel = ViewModelProvider(this)[AlarmViewModel::class.java]
 
         buttonSave.setOnClickListener {
             val a = Alarm(
@@ -63,28 +62,29 @@ class AddAlarmFragment : Fragment() {
 
             viewModel.addAlarm(a)
             viewModel.getAlarms()?.observe(viewLifecycleOwner) { alarms ->
-                Toast.makeText(context?.applicationContext, alarms!!.size, Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context, "Some Text: " + alarms[0].monday, Toast.LENGTH_LONG)
+                    .show()
             }
-            val calendar: Calendar = Calendar.getInstance()
-            if (Build.VERSION.SDK_INT >= 23) {
-                calendar.set(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH),
-                    timePicker.hour,
-                    timePicker.minute,
-                    0
-                )
-            } else {
-                calendar.set(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH),
-                    timePicker.currentHour,
-                    timePicker.currentMinute, 0
-                )
-            }
-            setAlarm(calendar.timeInMillis)
+//            val calendar: Calendar = Calendar.getInstance()
+//            if (Build.VERSION.SDK_INT >= 23) {
+//                calendar.set(
+//                    calendar.get(Calendar.YEAR),
+//                    calendar.get(Calendar.MONTH),
+//                    calendar.get(Calendar.DAY_OF_MONTH),
+//                    timePicker.hour,
+//                    timePicker.minute,
+//                    0
+//                )
+//            } else {
+//                calendar.set(
+//                    calendar.get(Calendar.YEAR),
+//                    calendar.get(Calendar.MONTH),
+//                    calendar.get(Calendar.DAY_OF_MONTH),
+//                    timePicker.currentHour,
+//                    timePicker.currentMinute, 0
+//                )
+//            }
+//            setAlarm(calendar.timeInMillis)
         }
 
         return view

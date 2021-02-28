@@ -53,9 +53,9 @@ dependencies {
 
     // Hilt
     implementation "com.google.dagger:hilt-android:2.28-alpha"
-    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    kapt 'com.google.dagger:hilt-android-compiler:2.28-alpha'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
 
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
@@ -65,9 +65,11 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:2.2.5"
-    annotationProcessor "androidx.room:room-compiler:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
     implementation "androidx.room:room-rxjava2:2.2.5"
     kapt "android.arch.persistence.room:compiler:2.2.5"
+
+    implementation "androidx.lifecycle:lifecycle-service:2.3.0"
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

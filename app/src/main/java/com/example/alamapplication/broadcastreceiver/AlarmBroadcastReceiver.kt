@@ -3,12 +3,15 @@ package com.example.alamapplication.broadcastreceiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.alamapplication.service.AlarmService
-import java.util.*
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
+
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onReceive(context: Context, intent: Intent) {
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             val toastText = String.format("Alarm Reboot")
@@ -28,10 +31,12 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun alarmIsToday(intent: Intent): Boolean {
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        when (calendar.get(Calendar.DAY_OF_WEEK)) {
+        val today: Int = calendar.get(Calendar.DAY_OF_WEEK)
+        when (today) {
             Calendar.MONDAY -> {
                 return intent.getBooleanExtra(
                         MONDAY,

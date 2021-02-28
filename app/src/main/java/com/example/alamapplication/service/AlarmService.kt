@@ -12,7 +12,6 @@ import androidx.core.app.NotificationCompat
 import com.example.alamapplication.R
 import com.example.alamapplication.RingActivity
 import com.example.alamapplication.application.App.Companion.CHANNEL_ID
-import com.example.alamapplication.broadcastreceiver.AlarmBroadcastReceiver
 
 class AlarmService : Service() {
     private var mediaPlayer: MediaPlayer? = null
@@ -28,8 +27,7 @@ class AlarmService : Service() {
         val notificationIntent = Intent(this, RingActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
         val alarmTitle = String.format(
-            "%s Alarm",
-            intent.getStringExtra(AlarmBroadcastReceiver.TITLE)
+            "%s Alarm", ""
         )
         val notification: Notification =
             NotificationCompat.Builder(this, CHANNEL_ID)

@@ -1,50 +1,41 @@
 package com.example.alamapplication.adapter
 
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import androidx.annotation.NonNull
-//import androidx.recyclerview.widget.RecyclerView
-//import com.example.alamapplication.R
-//import com.example.alamapplication.model.Alarm
-//
-//class AlarmRecyclerViewAdapter() :
-//    RecyclerView.Adapter<AlarmViewHolder>() {
-//    private var alarms: List<Alarm>
-//
-//    @NonNull
-//    override fun onCreateViewHolder(
-//        @NonNull parent: ViewGroup,
-//        viewType: Int
-//    ): AlarmViewHolder {
-//        val itemView: View =
-//            LayoutInflater.from(parent.context).inflate(R.layout.item_alarm, parent, false)
-//        return AlarmViewHolder(itemView, listener)
-//    }
-//
-//    override fun onBindViewHolder(
-//        @NonNull holder: AlarmViewHolder,
-//        position: Int
-//    ) {
-//        val alarm = alarms[position]
-//        holder.bind(alarm)
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return alarms.size
-//    }
-//
-//    fun setAlarms(alarms: List<Alarm>) {
-//        this.alarms = alarms
-//        notifyDataSetChanged()
-//    }
-//
-//    override fun onViewRecycled(@NonNull holder: AlarmViewHolder) {
-//        super.onViewRecycled(holder)
-//        holder.alarmStarted.setOnCheckedChangeListener(null)
-//    }
-//
-//    init {
-//        alarms = ArrayList()
-//    }
-//}
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.alamapplication.R
+import com.example.alamapplication.model.Alarm
+
+class AlarmAdapter(
+    var mList: MutableList<Alarm>
+) :
+    RecyclerView.Adapter<AlarmAdapter.ViewHolder>() {
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val rootView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_alarm, parent, false)
+        return ViewHolder(rootView)
+    }
+
+    override fun getItemCount(): Int {
+        return mList.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val item = mList[position]
+        with(holder) {
+
+        }
+    }
+    fun updateData(list: MutableList<Alarm>) {
+        mList = list
+        notifyDataSetChanged()
+    }
+
+}

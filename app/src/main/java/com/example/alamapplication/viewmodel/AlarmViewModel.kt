@@ -20,7 +20,7 @@ class AlarmViewModel @Inject constructor(private val repository: AlarmRepository
     }
 
     companion object {
-        private const val TAG = "TripViewModel"
+        private const val TAG = "AlarmViewModel"
     }
 
     init {

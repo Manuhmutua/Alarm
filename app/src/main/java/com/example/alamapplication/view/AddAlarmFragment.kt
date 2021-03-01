@@ -97,5 +97,4 @@ class AddAlarmFragment : Fragment() {
         viewModel.addAlarm(alarm)
         alarm.schedule(requireContext().applicationContext)
     }
-
 }

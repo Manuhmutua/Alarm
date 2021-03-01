@@ -48,7 +48,6 @@
                 android:id="@+id/anotation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AM"
                 app:layout_constraintBottom_toBottomOf="@+id/time"
                 app:layout_constraintStart_toEndOf="@+id/time" />
 

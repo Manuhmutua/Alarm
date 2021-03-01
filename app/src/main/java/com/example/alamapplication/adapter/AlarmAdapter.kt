@@ -3,6 +3,8 @@ package com.example.alamapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alamapplication.R
 import com.example.alamapplication.model.Alarm
@@ -13,7 +15,11 @@ class AlarmAdapter(
     RecyclerView.Adapter<AlarmAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        var days = itemView.findViewById(R.id.days) as TextView
+        var time = itemView.findViewById(R.id.time) as TextView
+        var anotation = itemView.findViewById(R.id.anotation) as TextView
+        var description = itemView.findViewById(R.id.description) as TextView
+        var switch = itemView.findViewById(R.id.switch1) as Switch
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,9 +36,10 @@ class AlarmAdapter(
 
         val item = mList[position]
         with(holder) {
-
+            time.text = item.hour.toString() + ":" + item.minute
         }
     }
+    
     fun updateData(list: MutableList<Alarm>) {
         mList = list
         notifyDataSetChanged()

@@ -27,11 +27,6 @@ class AddAlarmFragment : Fragment() {
     lateinit var timePicker: TimePicker
     lateinit var viewModel: AlarmViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,10 +56,7 @@ class AddAlarmFragment : Fragment() {
             )
 
             viewModel.addAlarm(a)
-            viewModel.getAlarms()?.observe(viewLifecycleOwner) { alarms ->
-                Toast.makeText(view.context, "Some Text: " + alarms[0].monday, Toast.LENGTH_LONG)
-                    .show()
-            }
+
 //            val calendar: Calendar = Calendar.getInstance()
 //            if (Build.VERSION.SDK_INT >= 23) {
 //                calendar.set(

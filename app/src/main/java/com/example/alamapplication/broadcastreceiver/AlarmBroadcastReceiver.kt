@@ -35,8 +35,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
     private fun alarmIsToday(intent: Intent): Boolean {
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        val today: Int = calendar.get(Calendar.DAY_OF_WEEK)
-        when (today) {
+        when (calendar.get(Calendar.DAY_OF_WEEK)) {
             Calendar.MONDAY -> {
                 return intent.getBooleanExtra(
                         MONDAY,

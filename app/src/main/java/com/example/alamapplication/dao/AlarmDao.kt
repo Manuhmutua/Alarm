@@ -1,15 +1,12 @@
 package com.example.alamapplication.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.alamapplication.model.Alarm
 
 @Dao
 interface AlarmDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(alarm: Alarm)
 
     @Query("DELETE FROM alarm_table")

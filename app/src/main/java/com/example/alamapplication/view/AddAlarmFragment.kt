@@ -1,26 +1,21 @@
 package com.example.alamapplication.view
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TimePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.alamapplication.R
-import com.example.alamapplication.broadcastreceiver.AlarmBroadcastReceiver
 import com.example.alamapplication.model.Alarm
+import com.example.alamapplication.util.TimePickerUtil.getTimePickerHour
+import com.example.alamapplication.util.TimePickerUtil.getTimePickerMinute
 import com.example.alamapplication.viewmodel.AlarmViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -29,6 +24,16 @@ class AddAlarmFragment : Fragment() {
     lateinit var buttonSave: Button
     lateinit var timePicker: TimePicker
     lateinit var viewModel: AlarmViewModel
+    lateinit var monday: CheckBox
+    lateinit var tusday: CheckBox
+    lateinit var wednesday: CheckBox
+    lateinit var thursday: CheckBox
+    lateinit var friday: CheckBox
+    lateinit var sarturday: CheckBox
+    lateinit var sunday: CheckBox
+    lateinit var recurring: CheckBox
+    lateinit var linearLayoutRecurringOptions: LinearLayout
+    lateinit var editTextTitle: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,66 +46,56 @@ class AddAlarmFragment : Fragment() {
 
         buttonSave = view.findViewById(R.id.buttonSave)
         timePicker = view.findViewById(R.id.timePicker)
+        monday = view.findViewById(R.id.checkBoxMonday)
+        tusday = view.findViewById(R.id.checkBoxTuesday)
+        wednesday = view.findViewById(R.id.checkBoxWednesday)
+        thursday = view.findViewById(R.id.checkBoxThursday)
+        friday = view.findViewById(R.id.checkBoxFriday)
+        sarturday = view.findViewById(R.id.checkBoxSartuday)
+        sunday = view.findViewById(R.id.checkBoxSunday)
+        recurring = view.findViewById(R.id.checkBoxRecurring)
+        linearLayoutRecurringOptions = view.findViewById(R.id.linearLayoutRecurringOptions)
+        editTextTitle = view.findViewById(R.id.editTextTitle)
+
+
+        recurring.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                linearLayoutRecurringOptions.visibility = View.VISIBLE
+            } else {
+                linearLayoutRecurringOptions.visibility = View.GONE
+            }
+        }
 
         viewModel = ViewModelProvider(this)[AlarmViewModel::class.java]
 
         buttonSave.setOnClickListener {
-            val a = Alarm(
-                1,
-                1,
-                1,
-                "",
-                1,
-                false,
-                recurring = false,
-                monday = false,
-                tuesday = false,
-                thursday = false,
-                friday = false,
-                wednesday = false,
-                saturday = false,
-                sunday = false
-            )
-
-            viewModel.addAlarm(a)
-
-//            val calendar: Calendar = Calendar.getInstance()
-//            if (Build.VERSION.SDK_INT >= 23) {
-//                calendar.set(
-//                    calendar.get(Calendar.YEAR),
-//                    calendar.get(Calendar.MONTH),
-//                    calendar.get(Calendar.DAY_OF_MONTH),
-//                    timePicker.hour,
-//                    timePicker.minute,
-//                    0
-//                )
-//            } else {
-//                calendar.set(
-//                    calendar.get(Calendar.YEAR),
-//                    calendar.get(Calendar.MONTH),
-//                    calendar.get(Calendar.DAY_OF_MONTH),
-//                    timePicker.currentHour,
-//                    timePicker.currentMinute, 0
-//                )
-//            }
-//            setAlarm(calendar.timeInMillis)
+            scheduleAlarm()
+            findNavController().navigate(R.id.action_addAlarmFragment_to_alarmFragment)
         }
 
         return view
     }
 
-    private fun setAlarm(timeInMillis: Long) {
-        val alarmManager =
-            context?.applicationContext?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context?.applicationContext, AlarmBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context?.applicationContext, 0, intent, 0)
-        alarmManager.setRepeating(
-            AlarmManager.RTC,
-            timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
+    private fun scheduleAlarm() {
+        val alarmId: Int = Random().nextInt(Int.MAX_VALUE)
+        val alarm = Alarm(
+            alarmId,
+            getTimePickerHour(timePicker),
+            getTimePickerMinute(timePicker),
+            editTextTitle.text.toString(),
+            System.currentTimeMillis(),
+            true,
+            recurring.isChecked,
+            monday.isChecked,
+            tusday.isChecked,
+            wednesday.isChecked,
+            thursday.isChecked,
+            friday.isChecked,
+            sarturday.isChecked,
+            sunday.isChecked
         )
-        Toast.makeText(context?.applicationContext, "Alarm is set", Toast.LENGTH_SHORT).show()
+        viewModel.addAlarm(alarm)
+        alarm.schedule(requireContext().applicationContext)
     }
 
 }

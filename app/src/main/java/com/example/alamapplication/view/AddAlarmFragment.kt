@@ -11,14 +11,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.alamapplication.R
 import com.example.alamapplication.broadcastreceiver.AlarmBroadcastReceiver
 import com.example.alamapplication.model.Alarm
 import com.example.alamapplication.viewmodel.AlarmViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class AddAlarmFragment : Fragment() {
@@ -32,6 +35,10 @@ class AddAlarmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_alarm, container, false)
+
+        (activity as AppCompatActivity?)!!.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity?)!!.supportActionBar?.setDisplayShowHomeEnabled(true)
+
         buttonSave = view.findViewById(R.id.buttonSave)
         timePicker = view.findViewById(R.id.timePicker)
 

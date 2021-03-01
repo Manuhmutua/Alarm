@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -33,6 +33,9 @@ class AlarmFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_alarm, container, false)
+
+        (activity as AppCompatActivity?)!!.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as AppCompatActivity?)!!.supportActionBar?.setDisplayShowHomeEnabled(false)
 
         rvAlarms = view.findViewById(R.id.rvAlarms)
         floatingActionButton = view.findViewById(R.id.floatingActionButton)
